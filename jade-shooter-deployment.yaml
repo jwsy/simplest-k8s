@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jade-shooter
+  labels:
+    app: jade-shooter
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jade-shooter
+  template:
+    metadata:
+      labels:
+        app: jade-shooter
+    spec:
+      containers:
+      - name: jade-shooter0
+        image: local/jwsy/jade-shooter:v1.2
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        ports:
+        - containerPort: 80
