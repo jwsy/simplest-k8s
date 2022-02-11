@@ -4,7 +4,6 @@ metadata:
   name: jade-shooter
   labels:
     app: jade-shooter
-  namespace: default
 spec:
   replicas: 1
   selector:
@@ -24,3 +23,13 @@ spec:
             cpu: "200m"
         ports:
         - containerPort: 80
+        volumeMounts:
+          - name: host-mount
+            mountPath: /usr/share/nginx/html/static
+      volumes:
+        - name: host-mount
+          hostPath:
+            # https://kubernetes.io/docs/concepts/storage/volumes/#hostpath
+            # Linux: /home/jyee/simplest-k8s/host-mount
+            # macOS: /Users/yourusername/path/to/repo/simplest-k8s/host-mount
+            path: /Users/jyee/code/simplest-k8s/host-mount 
