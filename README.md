@@ -1,12 +1,18 @@
-# simplest-k8s
-Simplest k8s deployment as seen here https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-min-5481edb9a4a5
+# simplest-k8s with local mounts
+Simplest k8s deployment as seen here https://jyeee.medium.com/simplest-basic-k8s-tutorial-to-mount-local-host-directory-into-a-pod-volume-example-with-rancher-18b4f1d75cd9
 
 1. Install Rancher Desktop https://rancherdesktop.io/
 
-2. Clone this repo 
+2. Clone this repo and checkout the `mount-local` branch
 
-    `git clone https://github.com/jwsy/simplest-k8s.git`
+    ```bash
+    git clone https://github.com/jwsy/simplest-k8s.git
+    git checkout mount-local
+    ```
 
-3. Apply the manifests in this repo 
+3. Create a namespace and apply the manifests in this repo to that namespace
  
-    `kubectl apply -f simplest-k8s`
+    ```bash
+    kubectl create namespace js
+    kubectl -n js apply -f simplest-k8s
+    ```
