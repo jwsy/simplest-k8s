@@ -2,20 +2,18 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: jade-shooter
-  labels:
-    name: jade-shooter
 spec:
   rules:
   - host: jade-shooter.rancher.localhost
     http:
       paths:
       - pathType: Prefix
-        path: "/"
+        path: /
         backend:
           service:
             name: jade-shooter-service
             port:
-              number: 80
+              number: 8080
   tls:
   - hosts:
     - jade-shooter.rancher.localhost
