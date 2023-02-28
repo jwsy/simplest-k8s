@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
       - name: jade-shooter0
-        image: jwsy/jade-shooter:v1.1
+        image: {{ .Values.image }}
         resources:
           limits:
             memory: "128Mi"
             cpu: "200m"
         ports:
-        - containerPort: 80
+        - containerPort: 8080

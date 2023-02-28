@@ -6,5 +6,5 @@ spec:
   selector:
     app: jade-shooter
   ports:
-  - port: 8080
-    targetPort: 80
+  - port: 30080
+    targetPort: 8080

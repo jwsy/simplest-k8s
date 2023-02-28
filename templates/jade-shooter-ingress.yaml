@@ -13,7 +13,7 @@ spec:
           service:
             name: jade-shooter-service
             port:
-              number: 8080
+              number: 30080
   tls:
   - hosts:
     - jade-shooter.rancher.localhost
