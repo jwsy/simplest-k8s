@@ -19,7 +19,7 @@ The declarative yaml manifests in this repo are:
  
     ```bash
     cd simplest-k8s/
-    kubectl apply -f simplest-k8s
+    kubectl apply -f .
     ```
 
 4. Browse to https://jade-shooter.rancher.localhost
