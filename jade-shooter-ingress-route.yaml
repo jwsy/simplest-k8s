@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jade-shooter
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`jade-shooter.rancher.localhost`)
+      priority: 10
+      services:
+        - name: jade-shooter-service
+          port: 8080
+  tls:
+    certResolver: default
