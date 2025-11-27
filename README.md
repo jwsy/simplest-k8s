@@ -1,10 +1,10 @@
-# simplest-k8s
+# simplest-k8s KYAML branch
 Simplest k8s deployment as described in this article https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-min-5481edb9a4a5
 
-The declarative yaml manifests in this repo are:
-* `jade-shooter-deployment.yaml`: deploys a scalable `deployment` of a simple app which creates a scalable number of K8s `pod`s which respond to port 80 and encapsulate a container 
-* `jade-shooter-service.yaml`: creates a `service` that allows this webapp's port 80 to communicate outside of its K8s namespace (AKA dedicated secure cluster) via port 8080
-* `jade-shooter-ingress.yaml`: creates an `ingress` that exposes the `service` to requests outside of the K8s cluster at https://jade-shooter.rancher.localhost
+The declarative kyaml manifests in this repo are:
+* `jade-shooter-deployment-kyaml.yaml`: deploys a scalable `deployment` of a simple app which creates a scalable number of K8s `pod`s which respond to port 80 and encapsulate a container 
+* `jade-shooter-service-kyaml.yaml`: creates a `service` that allows this webapp's port 80 to communicate outside of its K8s namespace (AKA dedicated secure cluster) via port 8080
+* `jade-shooter-ingress-kyaml.yaml`: creates an `ingress` that exposes the `service` to requests outside of the K8s cluster at https://jade-shooter.rancher.localhost
 
 ## Usage
 1. Install Rancher Desktop https://rancherdesktop.io/, the easiest way to get a local K8s lab imo. Here's how I set mine up: https://medium.com/macoclock/rancher-desktop-setup-for-k8s-on-your-macos-laptop-6f1c576ceb48

@@ -1,0 +1,31 @@
+# kyaml comments work the same as yaml
+{
+  apiVersion: "apps/v1",
+  kind: "Deployment",
+  metadata: {
+    name: "jade-shooter", 
+  }, # Inline comments ok ^^ look at that trailing comma too
+  spec: {
+    replicas: 1,
+    selector: {
+      matchLabels: { app: "jade-shooter" }
+    },
+    template: {
+      metadata: { labels: { app: "jade-shooter" } },
+      spec: {
+        containers: [
+          {
+            name: "jade-shooter0",
+            image: "jwsy/jade-shooter:v1.1",
+            resources: {
+              # I added requests since the VS Code K8s linter wants them
+              limits: { memory: "128Mi", cpu: "200m" },
+              requests: { memory: "64Mi", cpu: "100m" },
+            },
+            ports: [ { containerPort: 80 } ]
+          }
+        ]
+      }
+    }
+  }
+}
