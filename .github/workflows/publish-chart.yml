@@ -1,0 +1,49 @@
+name: Publish Helm Chart
+
+on:
+  push:
+    branches: ["main"]
+    tags: ["v*"]
+    paths:
+      - "Chart.yaml"
+      - "values.yaml"
+      - "templates/**"
+      - ".github/workflows/publish-chart.yml"
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Package and publish chart
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Extract chart metadata
+        id: metadata
+        run: |
+          CHART_NAME=$(awk -F": " '$1=="name"{print $2}' Chart.yaml)
+          CHART_VERSION=$(awk -F": " '$1=="version"{print $2}' Chart.yaml)
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "name=$CHART_NAME" >> "$GITHUB_OUTPUT"
+          echo "version=$CHART_VERSION" >> "$GITHUB_OUTPUT"
+          echo "owner=$OWNER" >> "$GITHUB_OUTPUT"
+
+      - name: Authenticate with GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Package chart
+        run: |
+          mkdir -p build
+          helm package . --destination build
+
+      - name: Push chart to GHCR
+        run: |
+          helm push "build/${{ steps.metadata.outputs.name }}-${{ steps.metadata.outputs.version }}.tgz" "oci://ghcr.io/${{ steps.metadata.outputs.owner }}/charts"
