@@ -4,7 +4,7 @@ This is the code for the simplest Helm deployment tutorial on my Medium blog at 
 The simplest Helm chart consists of three components: 
 
 1. The `Chart.yaml` file that is is copied from the command `helm create jade-shooter`
-2. The `values.yaml` file that contains a single line that sets `image: jwsy/jade-shooter:2.0.0` 
+2. The `values.yaml` file that contains a single line that sets `image: ghcr.io/jwsy/jade-shooter:v2.0.0`
 3. The declarative yaml manifests in `templates/` are in this article https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-min-5481edb9a4a5
 * `jade-shooter-deployment.yaml`: deploys a scalable `deployment` of a simple app which creates a scalable number of K8s `pod`s which respond to port 8080 and encapsulate a container based on the Nginx unprivileged container
 * `jade-shooter-service.yaml`: creates a `service` that allows this webapp's port 8080 to communicate outside of its K8s namespace (AKA dedicated secure cluster) via port 30080
@@ -27,7 +27,7 @@ https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-mi
 
     Helm will update the templates with values from the `values.yaml` provided or `--set` options passed. Using the `helm template` command, we can see 
     1. `templates/jade-shooter-deployment.yaml` uses a template tag `{{ .Values.image }}` 
-    2. `values.yaml` sets `image: jwsy/jade-shooter:2.0.0` 
+    2. `values.yaml` sets `image: ghcr.io/jwsy/jade-shooter:v2.0.0`
     3. `helm template .` uses the `Chart.yaml` and `values.yaml` in the current directory to substitute the value into the template and generate the K8s manifest that would be deployed 
 
         ```
@@ -39,12 +39,12 @@ https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-mi
         templates/jade-shooter-deployment.yaml-          limits:
 
         $ cat values.yaml
-        image: jwsy/jade-shooter:2.0.0
+        image: ghcr.io/jwsy/jade-shooter:v2.0.0
 
         $ helm template . | grep -C2 image
             containers:
             - name: jade-shooter0
-                image: jwsy/jade-shooter:2.0.0
+                image: ghcr.io/jwsy/jade-shooter:v2.0.0
                 resources:
                 limits:
         ```
@@ -92,7 +92,7 @@ https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-mi
     Change the image by setting the version in the `helm upgrade` command.
 
     ```
-    $ helm upgrade js . --set image=jwsy/jade-shooter:2.0.1
+    $ helm upgrade js . --set image=ghcr.io/jwsy/jade-shooter:v2.0.1
     Release "js" has been upgraded. Happy Helming!
     NAME: js
     LAST DEPLOYED: Fri Feb 24 15:13:47 2023
@@ -123,12 +123,12 @@ js  	default  	2       	2023-02-24 15:13:47.620007 -0500 EST	deployed	jade-shoot
 
 ### Using `diff` with `helm template`
 ```bash
-$ diff <(helm template js . --set image=jwsy/2.0.0) <(helm template js . --set image=jwsy/2.0.1)
+$ diff <(helm template js . --set image=ghcr.io/jwsy/jade-shooter:v2.0.0) <(helm template js . --set image=ghcr.io/jwsy/jade-shooter:v2.0.1)
 ```
 
 ```diff
 31c31
-<         image: jwsy/2.0.0
+<         image: ghcr.io/jwsy/jade-shooter:v2.0.0
 ---
->         image: jwsy/2.0.1
+>         image: ghcr.io/jwsy/jade-shooter:v2.0.1
 ```
