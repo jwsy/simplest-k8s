@@ -1,4 +1,4 @@
-# Simplest K8s Helm
+# Simplest K8s Helm 4
 This is the code for the simplest Helm deployment tutorial on my Medium blog at <https://medium.com/@jyeee/simplest-basic-helm-chart-tutorial-with-rancher-desktop-k8s-7b87c85d960e>
 
 The simplest Helm chart consists of three components: 
