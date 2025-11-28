@@ -2,7 +2,7 @@ name: Publish Helm Chart
 
 on:
   push:
-    branches: ["main"]
+    branches: ["helm4"]
     tags: ["v*"]
     paths:
       - "Chart.yaml"
