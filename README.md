@@ -1,5 +1,5 @@
 # simplest-k8s KYAML branch
-Simplest k8s deployment as described in this article https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-min-5481edb9a4a5
+Simplest k8s deployment as described in this article [https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-min-5481edb9a4a5](https://itnext.io/simplest-minimal-k8s-app-tutorial-with-kyaml-comments-curly-braces-and-rancher-desktop-0795835202d4)
 
 The declarative kyaml manifests in this repo are:
 * `jade-shooter-deployment-kyaml.yaml`: deploys a scalable `deployment` of a simple app which creates a scalable number of K8s `pod`s which respond to port 80 and encapsulate a container 
