@@ -119,7 +119,7 @@ Use the `helm ls` command to observe the app
 ```bash
 $ helm ls
 NAME	NAMESPACE	REVISION	UPDATED                             	STATUS  	CHART             	APP VERSION
-js  	default  	2       	2023-02-24 15:13:47.620007 -0500 EST	deployed	jade-shooter-0.1.0	v1.1
+js  	default  	2       	2023-02-24 15:13:47.620007 -0500 EST	deployed	jade-shooter-0.2.0	v2.0.2
 ```
 
 ### Using `diff` with `helm template`
