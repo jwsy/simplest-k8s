@@ -124,12 +124,12 @@ js  	default  	2       	2023-02-24 15:13:47.620007 -0500 EST	deployed	jade-shoot
 
 ### Using `diff` with `helm template`
 ```bash
-$ diff <(helm template js . --set image=jwsy/2.0.0) <(helm template js . --set image=jwsy/2.0.1)
+$ diff <(helm template js . --set image=ghcr.io/jwsy/jade-shooter-22:v2.0.1) <(helm template js . --set image=ghcr.io/jwsy/jade-shooter-22:v2.0.2)
 ```
 
 ```diff
 31c31
-<         image: jwsy/2.0.0
+<         image: ghcr.io/jwsy/jade-shooter-22:v2.0.1
 ---
->         image: jwsy/2.0.1
+>         image: ghcr.io/jwsy/jade-shooter-22:v2.0.2
 ```
