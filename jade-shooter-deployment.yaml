@@ -14,10 +14,13 @@ spec:
     spec:
       containers:
       - name: jade-shooter0
-        image: jwsy/jade-shooter:v1.1
+        image: ghcr.io/jwsy/jade-shooter-22:2.0.3
         resources:
+          requests:
+            memory: "128Mi"
+            cpu: "200m"
           limits:
             memory: "128Mi"
             cpu: "200m"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
