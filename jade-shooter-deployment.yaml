@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: jade-shooter0
-        image: ghcr.io/jwsy/jade-shooter-22:2.0.3
+        image: ghcr.io/jwsy/jade-shooter-22:v2.0.3
         resources:
           requests:
             memory: "128Mi"
