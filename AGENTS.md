@@ -24,8 +24,8 @@ kubectl delete -f .
 | File | Kind | Purpose |
 |---|---|---|
 | `jade-shooter-deployment.yaml` | Deployment | Runs the game container (1 replica, port 8080) |
-| `jade-shooter-service.yaml` | Service | ClusterIP exposing port 8080 inside the cluster |
-| `jade-shooter-ingress.yaml` | Ingress | Routes `jade-shooter.rancher.localhost` → service:8080 |
+| `jade-shooter-service.yaml` | Service | ClusterIP exposing port 38080 inside the cluster |
+| `jade-shooter-ingress.yaml` | Ingress | Routes `jade-shooter.rancher.localhost` → service:38080 |
 
 ## Key Values
 
@@ -33,7 +33,7 @@ kubectl delete -f .
 |---|---|
 | Container image | `ghcr.io/jwsy/jade-shooter-22:v2.0.3` |
 | Container port | `8080` |
-| Service port | `8080` → targetPort `8080` |
+| Service port | `38080` → targetPort `8080` |
 | Ingress hostname | `jade-shooter.rancher.localhost` |
 | Memory limit/request | `128Mi` |
 | CPU limit/request | `200m` |
