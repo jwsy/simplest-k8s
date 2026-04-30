@@ -4,10 +4,10 @@ This is the code for the simplest Helm deployment tutorial on my Medium blog at 
 The simplest Helm chart consists of three components: 
 
 1. The `Chart.yaml` file that is is copied from the command `helm create jade-shooter`
-2. The `values.yaml` file that contains a single line that sets `image: ghcr.io/jwsy/jade-shooter-22:v2.0.2`
+2. The `values.yaml` file that contains a single line that sets `image: ghcr.io/jwsy/jade-shooter-22:v2.0.2` 
 3. The declarative yaml manifests in `templates/` are in this article https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-min-5481edb9a4a5
 * `jade-shooter-deployment.yaml`: deploys a scalable `deployment` of a simple app which creates a scalable number of K8s `pod`s which respond to port 8080 and encapsulate a container based on the Nginx unprivileged container
-* `jade-shooter-service.yaml`: creates a `service` that allows this webapp's port 8080 to communicate outside of its K8s namespace (AKA dedicated secure cluster) via port 30080
+* `jade-shooter-service.yaml`: creates a `service` that allows this webapp's port 8080 to communicate outside of its K8s namespace (AKA dedicated secure cluster) via port 38080
 * `jade-shooter-ingress.yaml`: creates an `ingress` that exposes the `service` to requests outside of the K8s cluster at https://jade-shooter.rancher.localhost
 
 ## Usage
@@ -15,19 +15,19 @@ The simplest Helm chart consists of three components:
     
     Install Rancher Desktop https://rancherdesktop.io/, the easiest way to get a local K8s lab imo. Here's how I set mine up: https://medium.com/macoclock/rancher-desktop-setup-for-k8s-on-your-macos-laptop-6f1c576ceb48
 
-2. Clone this repo and checkout the helm branch. 
+2. Clone this repo and checkout the helm4 branch. 
     
     Take a look at what's in the simple helm chart which includes a boilerplate-laden `Chart.yaml`, a blank `values.yaml` file, and a `templates/` dir that has the contents of the simplest K8s tutorial
 https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-min-5481edb9a4a5
 
     ```
-    $ git clone https://github.com/jwsy/simplest-k8s.git -b helm
+    $ git clone https://github.com/jwsy/simplest-k8s.git -b helm4
     $ cd simplest-k8s/
     ```
 
     Helm will update the templates with values from the `values.yaml` provided or `--set` options passed. Using the `helm template` command, we can see 
     1. `templates/jade-shooter-deployment.yaml` uses a template tag `{{ .Values.image }}` 
-    2. `values.yaml` sets `image: ghcr.io/jwsy/jade-shooter-22:v2.0.2`
+    2. `values.yaml` sets `image: ghcr.io/jwsy/jade-shooter-22:v2.0.2` 
     3. `helm template .` uses the `Chart.yaml` and `values.yaml` in the current directory to substitute the value into the template and generate the K8s manifest that would be deployed 
 
         ```
@@ -70,7 +70,7 @@ https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-mi
 
     NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)     AGE
     service/kubernetes             ClusterIP   10.43.0.1       <none>        443/TCP     23h
-    service/jade-shooter-service   ClusterIP   10.43.223.212   <none>        30080/TCP   10s
+    service/jade-shooter-service   ClusterIP   10.43.223.212   <none>        38080/TCP   10s
 
     NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
     deployment.apps/jade-shooter   1/1     1            1           10s
@@ -83,16 +83,16 @@ https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-mi
 
     ```
 
-4. Observe the workload
+4. Observe the workload
     
-    Browse to https://jade-shooter.rancher.localhost to see the game running as version 2.0! 
+    Browse to https://jade-shooter.rancher.localhost to see the game running as version **v2.0.2**!
 
-5. Upgrade the app
+5. Upgrade the app
     
     Change the image by setting the version in the `helm upgrade` command.
 
     ```
-    $ helm upgrade js . --set image=ghcr.io/jwsy/jade-shooter-22:v2.0.2
+    $ helm upgrade js . --set image=ghcr.io/jwsy/jade-shooter-22:v2.0.3
     Release "js" has been upgraded. Happy Helming!
     NAME: js
     LAST DEPLOYED: Fri Feb 24 15:13:47 2023
@@ -101,13 +101,29 @@ https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-mi
     REVISION: 2
     TEST SUITE: None
     ```
-6. Observe the upgraded workload.
+6. Observe the upgraded workload.
 
-    Browse to https://jade-shooter.rancher.localhost to see the game running as version **2.0.1**! 
+    Browse to https://jade-shooter.rancher.localhost to see the game running as version **v2.0.3**! 
 
 
 ## Clean up
 To clean up, use `helm uninstall js`
+
+## Install from OCI Registry (Helm 4)
+
+Helm 4 supports OCI registries natively, so you can install this chart directly from GHCR without cloning the repo or adding a Helm repo first:
+
+```bash
+helm install jade-shooter oci://ghcr.io/jwsy/charts/jade-shooter --version 1.0.2
+```
+
+Upgrade to a new version the same way:
+
+```bash
+helm upgrade jade-shooter oci://ghcr.io/jwsy/charts/jade-shooter --version 1.0.3
+```
+
+The chart is published at https://github.com/jwsy/simplest-k8s/pkgs/container/charts%2Fjade-shooter
 
 ## Notes
 * The app is this customizable Kaboom space shooter created in this article: https://javascript.plainenglish.io/kaboom-js-repl-it-custom-top-down-shooter-in-5-min-ebad8157073a?postPublishedType=repub
@@ -119,17 +135,17 @@ Use the `helm ls` command to observe the app
 ```bash
 $ helm ls
 NAME	NAMESPACE	REVISION	UPDATED                             	STATUS  	CHART             	APP VERSION
-js  	default  	2       	2023-02-24 15:13:47.620007 -0500 EST	deployed	jade-shooter-1.0.1	v2.0.2
+js  	default  	2       	2023-02-24 15:13:47.620007 -0500 EST	deployed	jade-shooter-1.0.3	v2.0.3
 ```
 
 ### Using `diff` with `helm template`
 ```bash
-$ diff <(helm template js . --set image=ghcr.io/jwsy/jade-shooter-22:v2.0.1) <(helm template js . --set image=ghcr.io/jwsy/jade-shooter-22:v2.0.2)
+$ diff <(helm template js . --set image=ghcr.io/jwsy/jade-shooter-22:v2.0.2) <(helm template js . --set image=ghcr.io/jwsy/jade-shooter-22:v2.0.3)
 ```
 
 ```diff
 31c31
-<         image: ghcr.io/jwsy/jade-shooter-22:v2.0.1
+<         image: ghcr.io/jwsy/jade-shooter-22:v2.0.2
 ---
->         image: ghcr.io/jwsy/jade-shooter-22:v2.0.2
+>         image: ghcr.io/jwsy/jade-shooter-22:v2.0.3
 ```
