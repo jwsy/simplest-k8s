@@ -2,8 +2,8 @@
 Simplest k8s deployment as described in this article https://itnext.io/simplest-minimal-k8s-app-tutorial-with-rancher-desktop-in-5-min-5481edb9a4a5
 
 The declarative yaml manifests in this repo are:
-* `jade-shooter-deployment.yaml`: deploys a scalable `deployment` of a simple app which creates a scalable number of K8s `pod`s which respond to port 80 and encapsulate a container 
-* `jade-shooter-service.yaml`: creates a `service` that allows this webapp's port 80 to communicate outside of its K8s namespace (AKA dedicated secure cluster) via port 8080
+* `jade-shooter-deployment.yaml`: deploys a scalable `deployment` of a simple app which creates a scalable number of K8s `pod`s which respond to port 8080 and encapsulate a container 
+* `jade-shooter-service.yaml`: creates a `service` that allows this webapp's port 8080 to communicate outside of its K8s namespace (AKA dedicated secure cluster) via port 38080
 * `jade-shooter-ingress.yaml`: creates an `ingress` that exposes the `service` to requests outside of the K8s cluster at https://jade-shooter.rancher.localhost
 
 ## Usage
