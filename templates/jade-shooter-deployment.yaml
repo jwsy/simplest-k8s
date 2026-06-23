@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: jade-shooter
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount | default 1 }}
   selector:
     matchLabels:
       app: jade-shooter
